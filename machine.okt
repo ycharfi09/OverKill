@@ -1,0 +1,16 @@
+# OverKill Machine Definition
+# Defines memory layout, registers, and permissions
+
+memory 256x256
+
+# Define regions
+region registers 0;0 to 15;15 rw
+region storage 16;0 to 255;255 rw
+region readonly_area 16;240 to 31;255 readonly
+
+# Named registers
+reg 0;0 int counter
+reg 1;0 int result
+reg 2;0 int temp
+reg 3;0 int led
+reg 4;0 bool flag
