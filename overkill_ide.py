@@ -270,16 +270,17 @@ Second
                 temp_ok_file = f.name
                 f.write(code)
             
-            # Parse program
-            self.program = parse_program(temp_ok_file)
-            
-            # Clean up temporary file after parsing
             try:
-                os.unlink(temp_ok_file)
-            except FileNotFoundError:
-                pass  # File already deleted, ignore
-            except OSError as e:
-                self.log_console(f"Warning: Failed to clean up temp file: {e}")
+                # Parse program
+                self.program = parse_program(temp_ok_file)
+            finally:
+                # Clean up temporary file after parsing (or if parsing fails)
+                try:
+                    os.unlink(temp_ok_file)
+                except FileNotFoundError:
+                    pass  # File already deleted, ignore
+                except OSError as e:
+                    self.log_console(f"Warning: Failed to clean up temp file: {e}")
             
             # Check if machine file exists, create default if not
             if self.program.machine_file:
