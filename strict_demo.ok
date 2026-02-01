@@ -1,0 +1,12 @@
+run on "machine.okt"
+
+First
+    mode strict
+    set reg 0;0 = int 100 named value
+
+Second
+    # This will trigger an error - trying to write to readonly
+    write value into 20;250
+    
+    # This won't execute due to strict mode
+    set reg 1;0 = int 999

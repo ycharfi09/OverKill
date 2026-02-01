@@ -1,0 +1,25 @@
+run on "machine.okt"
+
+First
+    mode warn
+    set reg 0;0 = int 5 named input
+    set reg 1;0 = int 0 named output
+    set reg 2;0 = int 0 named temp
+    watch reg 1;0 on write
+
+Second
+    read 0;0 into x
+    
+    # Double the value
+    read 0;0 into x
+    write x into 2;0
+    read 2;0 into doubled
+    
+    # Write result
+    write doubled into 1;0
+    
+    # Show conditional
+    when doubled > 5
+        set reg 3;0 = int 1
+    
+    wait 100

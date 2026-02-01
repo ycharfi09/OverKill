@@ -79,7 +79,7 @@ class VirtualMachine:
         self.errors.append(error)
         self.add_log(error)
         if self.mode == "strict":
-            raise VMError(error)
+            raise VMError(message)
     
     def check_bounds(self, x: int, y: int) -> bool:
         """Check if coordinates are within bounds"""

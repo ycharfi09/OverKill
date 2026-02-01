@@ -75,7 +75,7 @@ class ExecutionEngine:
             return True
             
         except VMError as e:
-            self.vm.add_error(str(e))
+            # Error already logged by VM
             return False
         except Exception as e:
             self.vm.add_error(f"Execution error: {str(e)}")
