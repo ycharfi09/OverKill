@@ -1,0 +1,3 @@
+# Python dependencies for OverKill
+# No external dependencies required - uses standard library only
+# tkinter is part of standard Python installation

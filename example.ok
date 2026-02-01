@@ -1,0 +1,15 @@
+run on "machine.okt"
+
+First
+    mode warn
+    set reg 0;0 = int 10 named counter
+    set reg 1;0 = int 0 named result
+    set reg 3;0 = int 0 named led
+    watch reg 0;0 on write
+
+Second
+    read 0;0 into value
+    read 1;0 into current
+    write value into 2;0
+    set reg 3;0 = int 1
+    wait 100

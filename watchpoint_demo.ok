@@ -1,0 +1,17 @@
+run on "machine.okt"
+
+First
+    mode warn
+    set reg 0;0 = int 0 named counter
+    watch reg 0;0 on read
+    watch reg 0;0 on write
+
+Second
+    # Read triggers watchpoint
+    read 0;0 into val
+    
+    # Uninitialized read triggers warning
+    read 5;5 into uninitialized
+    
+    # Write triggers watchpoint
+    write val into 0;0

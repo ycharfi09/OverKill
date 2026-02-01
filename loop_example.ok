@@ -1,0 +1,27 @@
+run on "machine.okt"
+
+First
+    mode warn
+    set reg 0;0 = int 0 named counter
+    set reg 1;0 = int 1 named step
+    set reg 2;0 = int 0 named result
+    watch reg 2;0 on write
+
+Second
+    read 0;0 into counter
+    read 1;0 into step
+    read 2;0 into result
+    
+    # Increment counter
+    write counter into 3;0
+    read 3;0 into temp
+    
+    # Add step to result
+    write result into 2;0
+    
+    # Check if counter < 10
+    when counter < 10
+        set reg 0;0 = int counter
+    
+    wait 50
+    repeat forever

@@ -1,0 +1,49 @@
+run on "machine.okt"
+
+# Comprehensive demonstration of OverKill features
+# This program showcases: named registers, read/write operations,
+# watchpoints, variables, and proper memory management
+
+First
+    mode warn
+    
+    # Initialize registers with descriptive names
+    set reg 0;0 = int 3 named input
+    set reg 1;0 = int 0 named output
+    set reg 2;0 = int 5 named threshold
+    set reg 3;0 = int 0 named counter
+    set reg 4;0 = bool false named flag
+    
+    # Set watchpoints to monitor critical registers
+    watch reg 1;0 on write
+    watch reg 3;0 on both
+
+Second
+    # Read input value
+    read 0;0 into value
+    
+    # Read threshold
+    read 2;0 into limit
+    
+    # Read counter
+    read 3;0 into count
+    
+    # Increment counter
+    set reg 3;0 = int 1
+    
+    # Set output based on calculation
+    set reg 1;0 = int 1
+    
+    # Set flag to true
+    set reg 4;0 = bool true
+    
+    # Store result in storage area
+    read 1;0 into result
+    write result into 10;10
+    
+    # Store another value
+    write value into 11;10
+    
+    # Simulate processing delay
+    wait 50
+
