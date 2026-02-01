@@ -151,6 +151,12 @@ class VirtualMachine:
     
     def set_watchpoint(self, x: int, y: int, watch_type: str):
         """Set a watchpoint on a coordinate"""
+        # If there's already a watchpoint and types differ, set to "both"
+        if (x, y) in self.watchpoints:
+            existing = self.watchpoints[(x, y)]
+            if existing != watch_type and existing != "both":
+                watch_type = "both"
+        
         self.watchpoints[(x, y)] = watch_type
         self.add_log(f"Watchpoint set: ({x}, {y}) on {watch_type}")
     
