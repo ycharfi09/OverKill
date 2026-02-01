@@ -6,6 +6,7 @@ Minimal GUI with code editor, VM visualization, and execution controls
 import tkinter as tk
 from tkinter import ttk, scrolledtext, filedialog, messagebox
 import os
+import tempfile
 from machine_loader import load_machine_config, MachineConfig
 from language_parser import parse_program
 from virtual_machine import VirtualMachine
@@ -264,12 +265,22 @@ Second
         try:
             # Save code to temporary file
             code = self.code_editor.get(1.0, tk.END)
-            temp_ok_file = "/tmp/temp_program.ok"
-            with open(temp_ok_file, 'w') as f:
+            # Use tempfile to ensure reliable temp file creation
+            with tempfile.NamedTemporaryFile(mode='w', suffix='.ok', delete=False) as f:
+                temp_ok_file = f.name
                 f.write(code)
             
-            # Parse program
-            self.program = parse_program(temp_ok_file)
+            try:
+                # Parse program
+                self.program = parse_program(temp_ok_file)
+            finally:
+                # Clean up temporary file after parsing (or if parsing fails)
+                try:
+                    os.unlink(temp_ok_file)
+                except FileNotFoundError:
+                    pass  # File already deleted, ignore
+                except OSError as e:
+                    self.log_console(f"Warning: Failed to clean up temp file: {e}")
             
             # Check if machine file exists, create default if not
             if self.program.machine_file:
