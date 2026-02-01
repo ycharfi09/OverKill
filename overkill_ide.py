@@ -276,7 +276,7 @@ Second
             # Clean up temporary file after parsing
             try:
                 os.unlink(temp_ok_file)
-            except:
+            except OSError:
                 pass  # Ignore errors during cleanup
             
             # Check if machine file exists, create default if not
