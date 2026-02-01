@@ -276,8 +276,10 @@ Second
             # Clean up temporary file after parsing
             try:
                 os.unlink(temp_ok_file)
-            except OSError:
-                pass  # Ignore errors during cleanup
+            except FileNotFoundError:
+                pass  # File already deleted, ignore
+            except OSError as e:
+                self.log_console(f"Warning: Failed to clean up temp file: {e}")
             
             # Check if machine file exists, create default if not
             if self.program.machine_file:
